@@ -4,6 +4,7 @@ class Block:
     def __init__(self, message):
         self.message = message
         self.messageHash = sha256(message.encode()).hexdigest()
+
     def getHash(self):
         header = self.previousBlockHash + self.messageHash + hex(self.difficulty)[2:].rjust(2, '0') + hex(self.nonce)[2:].rjust(8, '0')
         return sha256(sha256(header.encode()).digest()).hexdigest()
@@ -19,7 +20,6 @@ class Blockchain:
         genesis.nonce = 88
         genesis.blockHash = genesis.getHash()
         self.chain = [genesis]
-
 
     def add(self, block):
         block.blockId = len(self.chain)
